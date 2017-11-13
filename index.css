@@ -1,0 +1,240 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+.js-startPage{
+    position: relative;
+    background-color: yellow;
+    height: 100%;
+}
+
+.container{
+    position: relative;
+    border: 2px solid blue;
+    display: block;
+    margin: 0 auto;
+    width: 412px;
+    height: 100%;
+}
+
+button {
+    position: absolute;
+    bottom: 5px;
+    left: 126px;
+    z-index: 50;
+    width: 160px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    color: purple;
+    box-shadow: 2px 2px 2px 2px #ACACAC;
+}
+
+.js-splashImage{
+    z-index: 1;
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.js-settingsImage{
+    z-index: 1;
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.js-questionsImage{
+    z-index: 1;
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.js-feedbackImage{
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.js-wrapImage{
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.js-correct{
+    color: green;
+}
+
+.js-incorrect{
+    color: red;
+}
+
+.js-questionsPage{
+}
+
+.js-scoreBox{
+    position: absolute;
+    left: 126px;
+    top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 3px solid darkgrey;
+    border-radius: 4px;
+    background-color: lightyellow;
+    height: 24px;
+    width: 160;
+    text-align: center;
+}
+
+.js-questionCounter{
+    position: absolute;
+    left: 126px;
+    top: 30px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    border: 3px solid darkgrey;
+    border-radius: 4px;
+    background-color: lightblue;
+    height: 36px;
+    width: 160;
+    padding-top: 4px;
+    text-align: center;
+}
+
+.js-screenQuestion{
+    position: absolute;
+    top: 150px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    border: 3px solid black;
+    border-radius: 4px;
+    background-color: azure;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.js-radioButton{
+    position: absolute;
+    top: 270px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    border: 3px solid blue;
+    border-radius: 4px;
+    background-color: cornsilk;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.js-feedBackImageRight{
+    position: absolute;
+    top: 110px;
+    left: 80px;
+}
+
+.js-feedBackImageWrong{
+    position: absolute;
+    top: 110px;
+    left: 80px;
+}
+
+.js-feedbackQuestion{
+    position: absolute;
+    top: 350px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    border: 3px solid black;
+    border-radius: 4px;
+    background-color: azure;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;    
+}
+
+.js-correctAnswer{
+    position: absolute;
+    top: 450px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    color: green;
+    border: 3px solid blue;
+    border-radius: 4px;
+    background-color: cornsilk;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.js-userAnswer{
+    position: absolute;
+    top: 520px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    color: red;
+    border: 3px solid blue;
+    border-radius: 4px;
+    background-color: cornsilk;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.js-wrapScore{
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    border: 3px solid orange;
+    border-radius: 4px;
+    background-color: cornsilk;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 1px;
+    text-align: center;
+}
+
+.js-scorePercent{
+    font-size: 24pt;
+}
+
+.js-evalList{
+    position: absolute;
+    top: 136px;
+    left: 20px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    border: 3px solid orange;
+    border-radius: 4px;
+    background-color: cornsilk;
+    width: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: left;
+}
