@@ -14,9 +14,8 @@ let QUESTIONS = [];  // Nothing to see here until the data is fetched from the O
 const JSON = {  // All the variables connected to the json packet go here.
   endpoint: 'https://opentdb.com/',
   apiKey: '',
-  amount: 3,
-  category: 16,
-  difficulty: 'easy',
+  amount: 0,
+  category: 0,
   type: ''
 };
 
@@ -51,14 +50,16 @@ const GetAPIPacket = {  // Gets questions data from the Open Trivia Database (ht
     console.log('In the getJsonQuestions method');
     let rndAnsArr=[];
     let tempObj={
-      amount: JSON.amount===0  ? 'amount=10' : `amount=${JSON.amount}`,
       category: JSON.category===0  ? '' : `&category=${JSON.category}`,
-      difficulty: JSON.difficulty===0  ? '' : `&difficulty=${JSON.difficulty}`,
-      type: JSON.type===0  ? '' : `&type=${JSON.type}`,
+      type: JSON.type===''  ? '' : `&type=${JSON.type}`,
       token: JSON.apiKey==='' ? '' : `&token=${JSON.apiKey}`
     };
-    $.getJSON(`${JSON.endpoint}api.php?${tempObj.amount}${tempObj.category}${tempObj.difficulty}${tempObj.type}${tempObj.token}`, function(json){
+    if(JSON.amount===0){
+      JSON.amount=5;
+    }
+    $.getJSON(`${JSON.endpoint}api.php?amount=${JSON.amount}${tempObj.category}${tempObj.type}${tempObj.token}`, function(json){
       console.log('In the json callback function');
+      console.log(`${JSON.endpoint}api.php?amount=${JSON.amount}${tempObj.category}${tempObj.type}${tempObj.token}`);
       let tempArr=[];
       for(let i=0; i<JSON.amount; i++){
         if(json.results[i].type==='multiple'){
@@ -282,7 +283,8 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
     let quizSplashHTML = `
       <div class='js-optionsPage'>
         <img src="splash.jpg" class="js-splashImage" alt="Let's get Thinkful, because it's Quiz Time! Cartoon person at 
-      the beach in a thinking pose next to a huge red question mark.">
+        the beach in a thinking pose next to a huge red question mark.">
+        <button type = 'button' id='js-optionsButton' class='none'>Settings</button>
       </div>`;
 
     $('div.js-pageViewSplashHTML').html(quizSplashHTML);
@@ -383,12 +385,20 @@ const Listeners = {  // All listener methods. More to come here.
     console.log('In the listen method');
     this.handleUserButton();
     this.handleRadioButtonClicked();
+    this.handleOptionsButton();
   },
 
   handleUserButton: function(){
     console.log('In the handleUserButton method');
     $('#js-userButton').on('click', function() {
       $('input[name=choices]').prop('checked', false);
+      if(STORE.currentView==='options'){
+        STORE.currentQuestion=0;
+        QUESTIONS=[];
+        GetAPIPacket.getJsonKey();
+        FlipPages.nextView();
+        RenderPage.doShowPages();
+      }
       if(!(STORE.currentView==='question' && STORE.radioButtonClicked===false)){
         FlipPages.nextView();
         RenderPage.doShowPages();
@@ -406,6 +416,16 @@ const Listeners = {  // All listener methods. More to come here.
       }
       QUESTIONS[STORE.currentQuestion-1].userChoice = selectedOption;
     });
+  },
+
+  handleOptionsButton: function(){
+    console.log('In the handleOptionsButton method');
+    $('#js-optionsButton').on('click', function() {
+      STORE.currentView='options';
+      GetAPIPacket.getJsonKey();
+      STORE.currentQuestion=0;
+      RenderPage.doShowPages();
+    });
   }
 };
 
@@ -417,7 +437,8 @@ const FlipPages = {  // Update the DOM by changing the STORE variables on clicki
   nextView: function(){
     console.log('In the nextView method.');
     if(STORE.currentView==='splash' && STORE.currentQuestion===0){
-      STORE.currentView='options';
+      STORE.currentView='question';
+      STORE.currentQuestion=1;
     } else if(STORE.currentView==='options' && STORE.currentQuestion===0){
       STORE.currentView='question';
       STORE.currentQuestion=1;

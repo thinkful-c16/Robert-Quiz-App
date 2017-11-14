@@ -48,6 +48,26 @@ h1 {
     cursor: not-allowed;
 }
 
+#js-optionsbutton {
+    position: absolute;
+    bottom: 55px;
+    left: 126px;
+    z-index: 50;
+    width: 160px;
+    height: 40px;
+    border-radius: 20px;
+    border-color: #a25840;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #c2846b;
+    color: black;
+}
+
+#js-optionsbutton:focus{
+    outline: none;
+}
+
 .js-splashImage{
     display: block;
     margin: 0 auto;
