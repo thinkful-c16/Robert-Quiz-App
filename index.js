@@ -14,9 +14,9 @@ let QUESTIONS = [];  // Nothing to see here until the data is fetched from the O
 const JSON = {  // All the variables connected to the json packet go here.
   endpoint: 'https://opentdb.com/',
   apiKey: '',
-  amount: 2,
-  category: 9,
-  difficulty: 'medium',
+  amount: 3,
+  category: 16,
+  difficulty: 'easy',
   type: ''
 };
 
@@ -188,9 +188,12 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     this.renderQuestions();
     if(QUESTIONS[STORE.currentQuestion-1].answer3===''){  // true-false question
       $('.js-twoMore').hide();
+      document.getElementById('js-radioButtonBox').setAttribute('class','js-twoQuestionBox');
     } else {
       $('.js-twoMore').show();
+      document.getElementById('js-radioButtonBox').setAttribute('class','js-fourQuestionBox');
     }
+    document.getElementById('js-userButton').setAttribute('class','js-userbutton disabled');
     $('div.js-pageViewSplashHTML').hide();
     $('div.js-pageViewOptionsHTML').hide();
     $('div.js-pageViewQuestionHTML').show();
@@ -238,7 +241,8 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     $('.js-currentScore').html(STORE.currentScore);
     $('.js-totalQuestions').html(JSON.amount);
     $('.js-currentQuestion').html(STORE.currentQuestion);
-    $('.js-scorePercent').html((STORE.currentScore/STORE.currentQuestion)*100 + '%');
+    let newPercent=(STORE.currentScore/STORE.currentQuestion)*100;
+    $('.js-scorePercent').html(Math.round((newPercent + 0.00001) * 100) / 100 + '%');
     $('.js-evalList').html(listHTML);
     $('div.js-pageViewSplashHTML').hide();
     $('div.js-pageViewOptionsHTML').hide();
@@ -307,18 +311,17 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
       <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
       <div class='js-questionCounter'>Question: <span class='js-currentQuestion'></span> of <span class='js-totalQuestions'></span></div>
         <div class='js-screenQuestion'></div>
-        <div class='js-radioButton' name='js-radioButton'>
-          <input type='radio' name='choices' value=1>
-          <label for='choice1' id='js-choice1'></label><br/>
-          
-          <input type='radio' name='choices' value=2>
-          <label for='choice1' id='js-choice2'></label><br/>
-          
-          <div class='js-twoMore'><input type='radio' name='choices' value=3>
-          <label for='choice1' id='js-choice3'></label><br/>
-          
-          <input type='radio' name='choices' value=4>
-          <label for='choice1' id='js-choice4'></label><br/></div>
+        <div id='js-radioButtonBox' class='none'>
+          <div class='js-radioButton' name='js-radioButton'>
+            <input type='radio' name='choices' value=1>
+            <label for='choice1' id='js-choice1'></label><br/>            
+            <input type='radio' name='choices' value=2>
+            <label for='choice1' id='js-choice2'></label><br/>            
+            <div class='js-twoMore'><input type='radio' name='choices' value=3>
+            <label for='choice1' id='js-choice3'></label><br/>            
+            <input type='radio' name='choices' value=4>
+            <label for='choice1' id='js-choice4'></label><br/></div>
+          </div>
         </div>
     `;
     // NOTE: The question and the five choices will be inserted in the correct places above, in renderQuestions().
@@ -358,7 +361,6 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
         <img src='wrap.jpg' class='js-wrapImage' alt='sunset'>
       </div>
       <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
-      <div class='js-questionCounter'>Question: <span class='js-currentQuestion'></span> of <span class='js-totalQuestions'></span></div>
       <div class='js-wrapScore'>Here's how you did:
         <div class='js-scorePercent'></div>
       </div>
@@ -396,7 +398,10 @@ const Listeners = {  // All listener methods. More to come here.
     console.log('In the handleRadioButtonClicked method');
     $('.js-radioButton').on('change',  function() {
       let selectedOption = $('input[name=choices]:checked', '.js-radioButton').val();
-      if(selectedOption>0) {STORE.radioButtonClicked=true;}
+      if(selectedOption>0) {
+        STORE.radioButtonClicked=true;
+        document.getElementById('js-userButton').setAttribute('class','js-userbutton');
+      }
       QUESTIONS[STORE.currentQuestion-1].userChoice = selectedOption;
     });
   }

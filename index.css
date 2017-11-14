@@ -14,14 +14,13 @@ h1 {
 
 .container{
     position: relative;
-    border: 2px solid blue;
     display: block;
     margin: 0 auto;
     width: 412px;
     height: 100%;
 }
 
-button {
+#js-userbutton {
     position: absolute;
     bottom: 5px;
     left: 126px;
@@ -29,11 +28,25 @@ button {
     width: 160px;
     height: 40px;
     border-radius: 20px;
+    border-color: yellow;
     font-size: 20px;
     margin-left: auto;
     margin-right: auto;
+    background-color: gold;
     color: purple;
     box-shadow: 2px 2px 2px 2px #ACACAC;
+}
+
+#js-userbutton:focus{
+    outline: none;
+}
+
+#js-userbutton.disabled{
+    background-color: lightgrey;
+    border-color: grey;
+    color: darkgrey;
+    opacity: 0.75;
+    cursor: not-allowed;
 }
 
 .js-splashImage{
@@ -82,20 +95,20 @@ button {
 
 .js-scoreBox{
     position: absolute;
-    left: 126px;
+    left: 136px;
     top: 5px;
     font-family: Arial, Helvetica, sans-serif;
     border: 3px solid darkgrey;
     border-radius: 4px;
     background-color: lightyellow;
     height: 24px;
-    width: 160;
+    width: 140;
     text-align: center;
 }
 
 .js-questionCounter{
     position: absolute;
-    left: 126px;
+    left: 116px;
     top: 30px;
     font-family: 'Arial Black', Gadget, sans-serif;
     font-size: 12pt;
@@ -104,7 +117,7 @@ button {
     border-radius: 4px;
     background-color: lightblue;
     height: 36px;
-    width: 160;
+    width: 180;
     padding-top: 4px;
     text-align: center;
 }
@@ -125,20 +138,42 @@ button {
     text-align: center;
 }
 
-.js-radioButton{
+.js-fourQuestionBox{
     position: absolute;
     top: 270px;
     left: 20px;
-    font-family: 'Arial Black', Gadget, sans-serif;
-    font-size: 12pt;
-    font-weight: 700;
     border: 3px solid blue;
     border-radius: 4px;
     background-color: cornsilk;
     width: 90%;
-    padding-top: 4px;
-    padding-bottom: 4px;
     text-align: center;
+}
+
+.js-twoQuestionBox{
+    position: absolute;
+    top: 270px;
+    left: 20px;
+    border: 3px solid blue;
+    border-radius: 4px;
+    background-color: cornsilk;
+    height: 56px;
+    width: 90%;
+    text-align: center;
+}
+
+.js-radioButton:before{
+    content: '\200B';
+    display: inline-block;
+}
+
+.js-radioButton{
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    text-align: left;
+    padding: 4px;
 }
 
 .js-feedBackImageRight{
@@ -188,7 +223,7 @@ button {
 
 .js-userAnswer{
     position: absolute;
-    top: 520px;
+    top: 550px;
     left: 20px;
     font-family: 'Arial Black', Gadget, sans-serif;
     font-size: 12pt;
@@ -205,36 +240,36 @@ button {
 
 .js-wrapScore{
     position: absolute;
-    top: 75px;
-    left: 20px;
+    top: 30px;
+    left: 80px;
     font-family: 'Arial Black', Gadget, sans-serif;
     font-size: 12pt;
     font-weight: 700;
-    border: 3px solid orange;
+    border: 3px solid indigo;
     border-radius: 4px;
     background-color: cornsilk;
-    width: 90%;
+    width: 60%;
     padding-top: 4px;
     padding-bottom: 1px;
     text-align: center;
 }
 
 .js-scorePercent{
-    font-size: 24pt;
+    font-size: 16pt;
+    color: blue;
 }
 
 .js-evalList{
     position: absolute;
-    top: 136px;
-    left: 20px;
+    top: 84px;
+    left: 3px;
     font-family: 'Arial Black', Gadget, sans-serif;
-    font-size: 12pt;
-    font-weight: 700;
+    font-size: 8pt;
     border: 3px solid orange;
     border-radius: 4px;
     background-color: cornsilk;
-    width: 90%;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    width: 100%;
+    max-height: 600px;
+    overflow: auto;
     text-align: left;
 }
