@@ -34,7 +34,6 @@ h1 {
     margin-right: auto;
     background-color: gold;
     color: purple;
-    box-shadow: 2px 2px 2px 2px #ACACAC;
 }
 
 #js-userbutton:focus{
@@ -50,21 +49,18 @@ h1 {
 }
 
 .js-splashImage{
-    z-index: 1;
     display: block;
     margin: 0 auto;
     height: 100%;
 }
 
 .js-settingsImage{
-    z-index: 1;
     display: block;
     margin: 0 auto;
     height: 100%;
 }
 
 .js-questionsImage{
-    z-index: 1;
     display: block;
     margin: 0 auto;
     height: 100%;

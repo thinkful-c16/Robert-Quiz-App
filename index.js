@@ -231,10 +231,12 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     console.log('In the wrapPage method.');
     let listHTML='';
     for(let i=0; i<QUESTIONS.length; i++) {
-      if(QUESTIONS[i].correct+''===QUESTIONS[i].userChoice+''){
-        listHTML+=`<li>${QUESTIONS[i].question}<br/>Answer: ${QUESTIONS[i]['answer'+QUESTIONS[i].correct]}<br/>Yours: <span class='js-correct'>${QUESTIONS[i]['answer'+QUESTIONS[i].userChoice]}  ✔</span></li>`;
+      if((QUESTIONS[i].correct+''!==QUESTIONS[i].userChoice+'') && QUESTIONS[i].choiceCount+''==='4'){
+        listHTML+=`<li>${QUESTIONS[i].question}<br/>Answer: <span class='js-correct'>${QUESTIONS[i]['answer'+QUESTIONS[i].correct]}</span><br/>Yours: <span class='js-incorrect'>${QUESTIONS[i]['answer'+QUESTIONS[i].userChoice]}  X</span></li>`;
+      } else if((QUESTIONS[i].correct+''!==QUESTIONS[i].userChoice+'') && QUESTIONS[i].choiceCount+''==='2'){
+        listHTML+=`<li>${QUESTIONS[i].question}<br/>Yours: <span class='js-incorrect'>${QUESTIONS[i]['answer'+QUESTIONS[i].userChoice]}  X</span></li>`;
       } else {
-        listHTML+=`<li>${QUESTIONS[i].question}<br/>Answer: ${QUESTIONS[i]['answer'+QUESTIONS[i].correct]}<br/>Yours: <span class='js-incorrect'>${QUESTIONS[i]['answer'+QUESTIONS[i].userChoice]}  X</span></li>`;
+        listHTML+=`<li>${QUESTIONS[i].question}<br/>Yours: <span class='js-correct'>${QUESTIONS[i]['answer'+QUESTIONS[i].userChoice]}  ✔</span></li>`;
       }
     }
     $('#js-userButton').html('PLAY AGAIN?');
