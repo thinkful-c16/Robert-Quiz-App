@@ -14,7 +14,7 @@ let QUESTIONS = [];  // Nothing to see here until the data is fetched from the O
 const JSON = {  // All the variables connected to the json packet go here.
   endpoint: 'https://opentdb.com/',
   apiKey: '',
-  amount: 0,
+  amount: 1,
   category: 0,
   type: ''
 };
@@ -143,11 +143,12 @@ const scrambleChoices = {  // First answer is always right. Scramble the choices
 
 const RenderPage = {  // Determines what HTML to display based on the current state.
   doShowPages: function(){
+    console.log('In the doShowPages method.');
     if (STORE.currentQuestion===0 && STORE.currentView==='splash'){
       this.splashPage();
     }
-    if (STORE.currentQuestion===0 && STORE.currentView==='options'){
-      this.optionsPage();
+    if (STORE.currentQuestion===0 && STORE.currentView==='settings'){
+      this.settingsPage();
     }
     if (STORE.currentQuestion>=1 && STORE.currentQuestion<=QUESTIONS.length && STORE.currentView==='question'){
       this.questionsPage();
@@ -164,17 +165,17 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     console.log('In the splashPage method.');
     $('#js-userButton').html('START');
     $('div.js-pageViewSplashHTML').show();
-    $('div.js-pageViewOptionsHTML').hide();
+    $('div.js-pageViewSettingsHTML').hide();
     $('div.js-pageViewQuestionHTML').hide();
     $('div.js-pageViewFeedBackHTML').hide();
     $('div.js-pageViewWrapHTML').hide();
   },
 
-  optionsPage: function(){
-    console.log('In the optionsPage method.');
+  settingsPage: function(){
+    console.log('In the settingsPage method.');
     $('#js-userButton').html('ONWARD!');
     $('div.js-pageViewSplashHTML').hide();
-    $('div.js-pageViewOptionsHTML').show();
+    $('div.js-pageViewSettingsHTML').show();
     $('div.js-pageViewQuestionHTML').hide();
     $('div.js-pageViewFeedBackHTML').hide();
     $('div.js-pageViewWrapHTML').hide();
@@ -196,7 +197,7 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     }
     document.getElementById('js-userButton').setAttribute('class','js-userbutton disabled');
     $('div.js-pageViewSplashHTML').hide();
-    $('div.js-pageViewOptionsHTML').hide();
+    $('div.js-pageViewSettingsHTML').hide();
     $('div.js-pageViewQuestionHTML').show();
     $('div.js-pageViewFeedBackHTML').hide();
     $('div.js-pageViewWrapHTML').hide();
@@ -222,7 +223,7 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     $('.js-totalQuestions').html(JSON.amount);
     $('.js-currentQuestion').html(STORE.currentQuestion);
     $('div.js-pageViewSplashHTML').hide();
-    $('div.js-pageViewOptionsHTML').hide();
+    $('div.js-pageViewSettingsHTML').hide();
     $('div.js-pageViewQuestionHTML').hide();
     $('div.js-pageViewFeedBackHTML').show();
     $('div.js-pageViewWrapHTML').hide();
@@ -248,7 +249,7 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     $('.js-scorePercent').html(Math.round((newPercent + 0.00001) * 100) / 100 + '%');
     $('.js-evalList').html(listHTML);
     $('div.js-pageViewSplashHTML').hide();
-    $('div.js-pageViewOptionsHTML').hide();
+    $('div.js-pageViewSettingsHTML').hide();
     $('div.js-pageViewQuestionHTML').hide();
     $('div.js-pageViewFeedBackHTML').hide();
     $('div.js-pageViewWrapHTML').show();
@@ -270,7 +271,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
   doHtmlPages: function(){
     console.log('In the doHtmlPages method.');
     this.splashHtml();
-    this.optionsHtml();
+    this.settingsHtml();
     this.questionHtml();
     this.feedBackHtml();
     this.wrapHtml();
@@ -281,27 +282,27 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
     // Set up splash page, then hide it.
 
     let quizSplashHTML = `
-      <div class='js-optionsPage'>
+      <div class='js-settingsPage'>
         <img src="splash.jpg" class="js-splashImage" alt="Let's get Thinkful, because it's Quiz Time! Cartoon person at 
         the beach in a thinking pose next to a huge red question mark.">
-        <button type = 'button' id='js-optionsButton' class='none'>Settings</button>
+        <button type = 'button' id='js-settingsButton' class='none'>Settings</button>
       </div>`;
 
     $('div.js-pageViewSplashHTML').html(quizSplashHTML);
     $('div.js-pageViewSplashHTML').hide();
   },
 
-  optionsHtml: function(){
-    console.log('In the optionsHtml method.');
+  settingsHtml: function(){
+    console.log('In the settingsHtml method.');
     // Set up splash page, then hide it.
 
-    let quizOptionsHTML = `
-      <div class='js-optionsPage'>
+    let quizSettingsHTML = `
+      <div class='js-settingsPage'>
         <img src="settings.jpg" class="js-settingsImage" alt="machinery and gauges">
       </div>`;
 
-    $('div.js-pageViewOptionsHTML').html(quizOptionsHTML);
-    $('div.js-pageViewOptionsHTML').hide();
+    $('div.js-pageViewSettingsHTML').html(quizSettingsHTML);
+    $('div.js-pageViewSettingsHTML').hide();
   },
 
   questionHtml: function(){
@@ -309,7 +310,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
     // Set up question page, then hide it.
 
     let quizQuestionsHTML = `
-      <div class='js-optionsPage'>
+      <div class='js-settingsPage'>
         <img src='questions.jpg' class='js-questionsImage' alt='walking out of fog'>
       </div>
       <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
@@ -338,7 +339,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
     // Set up feedback page, then hide it.
 
     let quizFeedbackHTML = `
-      <div class='js-optionsPage'>
+      <div class='js-settingsPage'>
         <img src='feedback.jpg' class='js-feedbackImage' alt='mountains in the mist'>
       </div>
       <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
@@ -361,7 +362,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
     // Set up wrap page, then hide it.
 
     let quizWrapHTML = `
-      <div class='js-optionsPage'>
+      <div class='js-settingsPage'>
         <img src='wrap.jpg' class='js-wrapImage' alt='sunset'>
       </div>
       <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
@@ -385,21 +386,23 @@ const Listeners = {  // All listener methods. More to come here.
     console.log('In the listen method');
     this.handleUserButton();
     this.handleRadioButtonClicked();
-    this.handleOptionsButton();
+    this.handleSettingsButton();
   },
 
   handleUserButton: function(){
     console.log('In the handleUserButton method');
     $('#js-userButton').on('click', function() {
       $('input[name=choices]').prop('checked', false);
-      if(STORE.currentView==='options'){
-        STORE.currentQuestion=0;
-        QUESTIONS=[];
-        GetAPIPacket.getJsonKey();
-        FlipPages.nextView();
+      if(STORE.currentView==='settings'){
+        QUESTIONS = [];
+        GetAPIPacket.getJsonQuestions();
+        STORE.currentQuestion = 1;
+        STORE.currentView = 'question';
+        STORE.currentScore = 0;
+        STORE.radioButtonClicked = false;
+        // FlipPages.nextView();
         RenderPage.doShowPages();
-      }
-      if(!(STORE.currentView==='question' && STORE.radioButtonClicked===false)){
+      } else if(!(STORE.currentView==='question' && STORE.radioButtonClicked===false)){
         FlipPages.nextView();
         RenderPage.doShowPages();
       }
@@ -418,12 +421,10 @@ const Listeners = {  // All listener methods. More to come here.
     });
   },
 
-  handleOptionsButton: function(){
-    console.log('In the handleOptionsButton method');
-    $('#js-optionsButton').on('click', function() {
-      STORE.currentView='options';
-      GetAPIPacket.getJsonKey();
-      STORE.currentQuestion=0;
+  handleSettingsButton: function(){
+    console.log('In the handleSettingsButton method');
+    $('#js-settingsButton').on('click', function() {
+      STORE.currentView='settings';
       RenderPage.doShowPages();
     });
   }
@@ -437,9 +438,6 @@ const FlipPages = {  // Update the DOM by changing the STORE variables on clicki
   nextView: function(){
     console.log('In the nextView method.');
     if(STORE.currentView==='splash' && STORE.currentQuestion===0){
-      STORE.currentView='question';
-      STORE.currentQuestion=1;
-    } else if(STORE.currentView==='options' && STORE.currentQuestion===0){
       STORE.currentView='question';
       STORE.currentQuestion=1;
     } else if(STORE.currentView==='question' && STORE.currentQuestion<=QUESTIONS.length){
