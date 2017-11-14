@@ -184,9 +184,8 @@ const RenderPage = {  // Determines what HTML to display based on the current st
   questionsPage: function(){
     console.log('In the questionsPage method.');
     $('#js-userButton').html('ENTER');
-    $('.js-currentScore').html(STORE.currentScore);
-    $('.js-currentQuestion').html(STORE.currentQuestion);
-    $('.js-totalQuestions').html(JSON.amount);
+    $('.js-scoreBox').html(`Score: ${STORE.currentScore} of ${QUESTIONS.length}`);
+    $('.js-questionCounter').html(`Question: ${STORE.currentQuestion} of ${QUESTIONS.length}`);
     this.renderQuestions();
     if(QUESTIONS[STORE.currentQuestion-1].answer3===''){  // true-false question
       $('.js-twoMore').hide();
@@ -219,9 +218,8 @@ const RenderPage = {  // Determines what HTML to display based on the current st
       $('.js-feedBackImageWrong').show();
       $('.js-userAnswer').show();     
     }
-    $('.js-currentScore').html(STORE.currentScore);
-    $('.js-totalQuestions').html(JSON.amount);
-    $('.js-currentQuestion').html(STORE.currentQuestion);
+    $('.js-scoreBox').html(`Score: ${STORE.currentScore} of ${QUESTIONS.length}`);
+    $('.js-questionCounter').html(`Question: ${STORE.currentQuestion} of ${QUESTIONS.length}`);
     $('div.js-pageViewSplashHTML').hide();
     $('div.js-pageViewSettingsHTML').hide();
     $('div.js-pageViewQuestionHTML').hide();
@@ -242,9 +240,7 @@ const RenderPage = {  // Determines what HTML to display based on the current st
       }
     }
     $('#js-userButton').html('PLAY AGAIN?');
-    $('.js-currentScore').html(STORE.currentScore);
-    $('.js-totalQuestions').html(JSON.amount);
-    $('.js-currentQuestion').html(STORE.currentQuestion);
+    $('.js-scoreBox').html(`Score: ${STORE.currentScore} of ${QUESTIONS.length}`);
     let newPercent=(STORE.currentScore/STORE.currentQuestion)*100;
     $('.js-scorePercent').html(Math.round((newPercent + 0.00001) * 100) / 100 + '%');
     $('.js-evalList').html(listHTML);
@@ -283,7 +279,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
 
     let quizSplashHTML = `
       <div class='js-settingsPage'>
-        <img src="splash.jpg" class="js-splashImage" alt="Let's get Thinkful, because it's Quiz Time! Cartoon person at 
+        <img src="splash.jpg" class="js-splashImage" alt="Intro screen: Let's get Thinkful, because it's Quiz Time! Picture of cartoon person at 
         the beach in a thinking pose next to a huge red question mark.">
         <button type = 'button' id='js-settingsButton' class='none'>Settings</button>
       </div>`;
@@ -298,7 +294,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
 
     let quizSettingsHTML = `
       <div class='js-settingsPage'>
-        <img src="settings.jpg" class="js-settingsImage" alt="machinery and gauges">
+        <img src="settings.jpg" class="js-settingsImage" alt="Settings screen: picture of machinery and gauges.">
       </div>`;
 
     $('div.js-pageViewSettingsHTML').html(quizSettingsHTML);
@@ -311,10 +307,10 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
 
     let quizQuestionsHTML = `
       <div class='js-settingsPage'>
-        <img src='questions.jpg' class='js-questionsImage' alt='walking out of fog'>
+        <img src='questions.jpg' class='js-questionsImage' alt='Question screen: picture of a person walking out of fog.'>
       </div>
-      <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
-      <div class='js-questionCounter'>Question: <span class='js-currentQuestion'></span> of <span class='js-totalQuestions'></span></div>
+      <div class='js-scoreBox'></div>
+      <div class='js-questionCounter'></div>
         <div class='js-screenQuestion'></div>
         <div id='js-radioButtonBox' class='none'>
           <div class='js-radioButton' name='js-radioButton'>
@@ -340,10 +336,10 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
 
     let quizFeedbackHTML = `
       <div class='js-settingsPage'>
-        <img src='feedback.jpg' class='js-feedbackImage' alt='mountains in the mist'>
+        <img src='feedback.jpg' class='js-feedbackImage' alt='Feedback screen: picture of mountains in the mist.'>
       </div>
-      <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
-      <div class='js-questionCounter'>Question: <span class='js-currentQuestion'></span> of <span class='js-totalQuestions'></span></div>
+      <div class='js-scoreBox'></div>
+      <div class='js-questionCounter'></div>
       <img src="Right.png" class="js-feedBackImageRight" alt="Big green check mark"></div>
       <img src="Wrong.png" class="js-feedBackImageWrong" alt="Big red X"></div>
       <div class='js-feedbackQuestion'></div><br/>
@@ -363,9 +359,9 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
 
     let quizWrapHTML = `
       <div class='js-settingsPage'>
-        <img src='wrap.jpg' class='js-wrapImage' alt='sunset'>
+        <img src='wrap.jpg' class='js-wrapImage' alt='Wrap-up of quiz screen: picture of a sunset.'>
       </div>
-      <div class='js-scoreBox'>Score: <span class='js-currentScore'></span> of <span class='js-totalQuestions'></span></div>
+      <div class='js-scoreBox'></div>
       <div class='js-wrapScore'>Here's how you did:
         <div class='js-scorePercent'></div>
       </div>
