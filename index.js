@@ -14,8 +14,8 @@ let QUESTIONS = [];  // Nothing to see here until the data is fetched from the O
 const JSON = {  // All the variables connected to the json packet go here.
   endpoint: 'https://opentdb.com/',
   apiKey: '',
-  amount: 2,
-  category: 0,
+  amount: 10,
+  category: 9,
   type: '',
   questionsArray: []
 };
@@ -317,7 +317,31 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
     let quizSettingsHTML = `
       <div class='js-settingsPage'>
         <img src="settings.jpg" class="js-settingsImage" alt="Settings screen: picture of machinery and gauges.">
-      </div>`;
+      </div>
+
+      <form action='/userSettings' method='post' class='js-settingsForm'>
+        <span class='js-1stWidget'>
+          <label for='js-questionsToDo' class='js-questionsPickerLabel'>How many questions?</label>
+          <select class='js-questionsToDo'>
+            <option value=10>10 questions</option>
+            <option value=20>20 questions</option>
+            <option value=30>30 questions</option>
+            <option value=40>40 questions</option>
+            <option value=50>50 questions</option>
+          </select>
+        </span>
+
+        <span class='js-2ndWidget'>
+          <label for='js-category' class='js-questionsPickerLabel'>Which category?</label>
+          <select class='js-category'>
+            <option value=9>General Knowledge</option>
+            <option value=21>Sports</option>
+            <option value=20>Mythology</option>
+            <option value=23>History</option>
+            <option value=12>Music</option>
+          </select>
+        </span>
+      </form>`;
 
     $('div.js-pageViewSettingsHTML').html(quizSettingsHTML);
     $('div.js-pageViewSettingsHTML').hide();
@@ -331,21 +355,21 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
       <div class='js-settingsPage'>
         <img src='questions.jpg' class='js-questionsImage' alt='Question screen: picture of a person walking out of fog.'>
       </div>
-      <div class='js-scoreBox'></div>
-      <div class='js-questionCounter'></div>
-        <div class='js-screenQuestion'></div>
-        <div id='js-radioButtonBox' class='none'>
-          <div class='js-radioButton' name='js-radioButton'>
+      <span class='js-scoreBox'></span>
+      <span class='js-questionCounter'></span>
+        <span class='js-screenQuestion'></span>
+        <span id='js-radioButtonBox' class='none'>
+          <span class='js-radioButton' name='js-radioButton'>
             <input type='radio' name='choices' value=1>
             <label for='choice1' id='js-choice1'></label><br/>            
             <input type='radio' name='choices' value=2>
             <label for='choice1' id='js-choice2'></label><br/>            
-            <div class='js-twoMore'><input type='radio' name='choices' value=3>
+            <span class='js-twoMore'><input type='radio' name='choices' value=3>
             <label for='choice1' id='js-choice3'></label><br/>            
             <input type='radio' name='choices' value=4>
-            <label for='choice1' id='js-choice4'></label><br/></div>
-          </div>
-        </div>
+            <label for='choice1' id='js-choice4'></label><br/></span>
+          </span>
+        </span>
     `;
     // NOTE: The question and the five choices will be inserted in the correct places above, in renderQuestions().
     $('div.js-pageViewQuestionHTML').html(quizQuestionsHTML);
@@ -360,13 +384,13 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
       <div class='js-settingsPage'>
         <img src='feedback.jpg' class='js-feedbackImage' alt='Feedback screen: picture of mountains in the mist.'>
       </div>
-      <div class='js-scoreBox'></div>
-      <div class='js-questionCounter'></div>
-      <img src="Right.png" class="js-feedBackImageRight" alt="Big green check mark"></div>
-      <img src="Wrong.png" class="js-feedBackImageWrong" alt="Big red X"></div>
-      <div class='js-feedbackQuestion'></div><br/>
-      <div class='js-correctAnswer'></div><br/>
-      <div class='js-userAnswer'><br/></div>
+      <span class='js-scoreBox'></span>
+      <span class='js-questionCounter'></span>
+      <img src="Right.png" class="js-feedBackImageRight" alt="Big green check mark"></span>
+      <img src="Wrong.png" class="js-feedBackImageWrong" alt="Big red X"></span>
+      <span class='js-feedbackQuestion'></span><br/>
+      <span class='js-correctAnswer'></span><br/>
+      <span class='js-userAnswer'><br/></span>
       <br/>
       <br/>
       <br/>
@@ -383,10 +407,10 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
       <div class='js-settingsPage'>
         <img src='wrap.jpg' class='js-wrapImage' alt='Wrap-up of quiz screen: picture of a sunset.'>
       </div>
-      <div class='js-scoreBox'></div>
-      <div class='js-wrapScore'>Here's how you did:
-        <div class='js-scorePercent'></div>
-      </div>
+      <span class='js-scoreBox'></span>
+      <span class='js-wrapScore'>Here's how you did:<br/>
+        <span class='js-scorePercent'></span>
+      </span>
       <ol class='js-evalList'></ol>
       <br/>
     `;
