@@ -14,9 +14,10 @@ let QUESTIONS = [];  // Nothing to see here until the data is fetched from the O
 const JSON = {  // All the variables connected to the json packet go here.
   endpoint: 'https://opentdb.com/',
   apiKey: '',
-  amount: 1,
+  amount: 2,
   category: 0,
-  type: ''
+  type: '',
+  questionsArray: []
 };
 
 /******************************************************** 
@@ -48,7 +49,6 @@ const GetAPIPacket = {  // Gets questions data from the Open Trivia Database (ht
 
   getJsonQuestions: function(){
     console.log('In the getJsonQuestions method');
-    let rndAnsArr=[];
     let tempObj={
       category: JSON.category===0  ? '' : `&category=${JSON.category}`,
       type: JSON.type===''  ? '' : `&type=${JSON.type}`,
@@ -60,35 +60,51 @@ const GetAPIPacket = {  // Gets questions data from the Open Trivia Database (ht
     $.getJSON(`${JSON.endpoint}api.php?amount=${JSON.amount}${tempObj.category}${tempObj.type}${tempObj.token}`, function(json){
       console.log('In the json callback function');
       console.log(`${JSON.endpoint}api.php?amount=${JSON.amount}${tempObj.category}${tempObj.type}${tempObj.token}`);
-      let tempArr=[];
-      for(let i=0; i<JSON.amount; i++){
-        if(json.results[i].type==='multiple'){
-          QUESTIONS.push({
-            question: json.results[i].question,
-            answer1: json.results[i].correct_answer,
-            answer2: json.results[i].incorrect_answers[0],
-            answer3: json.results[i].incorrect_answers[1],
-            answer4: json.results[i].incorrect_answers[2],
-            correct: 0,
-            userChoice: 0,
-            choiceCount: 4,
-          });
-        } else {
-          QUESTIONS.push({
-            question: json.results[i].question,
-            answer1: json.results[i].correct_answer,
-            answer2: json.results[i].incorrect_answers[0],
-            answer3: '',
-            answer4: '',
-            correct: 0,
-            userChoice: 0,
-            choiceCount: 2,
-          });            
-        }
-      }
-      scrambleChoices.doScrambling();
+      JSON.questionsArray=[];
+      QUESTIONS=[];
+      console.log(JSON.questionsArray);    
+      JSON.questionsArray=json.results;
+      GetAPIPacket.pushToQUESTIONS();
+    }).fail(function() {
+      console.log( 'error' );
     });
-  }
+  },
+
+  pushToQUESTIONS: function(){
+    let newQuestion='';
+    let newChoice1='';
+    let newChoice2='';
+    let newChoice3='';
+    let newChoice4='';
+    let newChoiceCount=0;
+    for(let i=0; i<JSON.amount; i++){
+      newQuestion=JSON.questionsArray[i].question;
+      newChoice1=JSON.questionsArray[i].correct_answer;
+      newChoice2=JSON.questionsArray[i].incorrect_answers[0];
+      if(JSON.questionsArray[i].type==='multiple'){
+        console.log('Adding a multiple question');
+        newChoiceCount=4;
+        newChoice3=JSON.questionsArray[i].incorrect_answers[1];
+        newChoice4=JSON.questionsArray[i].incorrect_answers[2];        
+      } else {
+        console.log('Adding a boolean question');
+        newChoiceCount=2;
+        newChoice3='';
+        newChoice4='';
+      }
+      QUESTIONS.push({
+        question: newQuestion,
+        answer1: newChoice1,
+        answer2: newChoice2,
+        answer3: newChoice3,
+        answer4: newChoice4,
+        correct: 0,
+        userChoice: 0,
+        choiceCount: newChoiceCount,
+      });
+    }
+    scrambleChoices.doScrambling();
+  }  
 };
 
 const scrambleChoices = {  // First answer is always right. Scramble the choices so that's not so.
@@ -130,6 +146,12 @@ const scrambleChoices = {  // First answer is always right. Scramble the choices
           QUESTIONS[i].correct=j;
         }
       }
+    }
+    if(STORE.currentView==='settings'){
+      STORE.currentScore = 0;
+      STORE.radioButtonClicked = false;
+      FlipPages.nextView();
+      RenderPage.doShowPages();
     }
   },
 
@@ -389,15 +411,13 @@ const Listeners = {  // All listener methods. More to come here.
     console.log('In the handleUserButton method');
     $('#js-userButton').on('click', function() {
       $('input[name=choices]').prop('checked', false);
+      console.log('Main button clicked.');
       if(STORE.currentView==='settings'){
-        QUESTIONS = [];
-        GetAPIPacket.getJsonQuestions();
-        STORE.currentQuestion = 1;
-        STORE.currentView = 'question';
-        STORE.currentScore = 0;
-        STORE.radioButtonClicked = false;
+        GetAPIPacket.getJsonKey();
+        // STORE.currentScore = 0;
+        // STORE.radioButtonClicked = false;
         // FlipPages.nextView();
-        RenderPage.doShowPages();
+        // RenderPage.doShowPages();
       } else if(!(STORE.currentView==='question' && STORE.radioButtonClicked===false)){
         FlipPages.nextView();
         RenderPage.doShowPages();
@@ -434,6 +454,9 @@ const FlipPages = {  // Update the DOM by changing the STORE variables on clicki
   nextView: function(){
     console.log('In the nextView method.');
     if(STORE.currentView==='splash' && STORE.currentQuestion===0){
+      STORE.currentView='question';
+      STORE.currentQuestion=1;
+    } else if(STORE.currentView==='settings'){
       STORE.currentView='question';
       STORE.currentQuestion=1;
     } else if(STORE.currentView==='question' && STORE.currentQuestion<=QUESTIONS.length){
