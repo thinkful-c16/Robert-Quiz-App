@@ -277,10 +277,10 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     console.log('In the renderQuestions method.');
     //only if the STORE is on pages that show questions
     $('.js-screenQuestion').html(QUESTIONS[STORE.currentQuestion-1].question);
-    $('#js-choice1').html(QUESTIONS[STORE.currentQuestion-1].answer1);
-    $('#js-choice2').html(QUESTIONS[STORE.currentQuestion-1].answer2);
-    $('#js-choice3').html(QUESTIONS[STORE.currentQuestion-1].answer3);
-    $('#js-choice4').html(QUESTIONS[STORE.currentQuestion-1].answer4);
+    $('#js-choice1').text(QUESTIONS[STORE.currentQuestion-1].answer1);
+    $('#js-choice2').text(QUESTIONS[STORE.currentQuestion-1].answer2);
+    $('#js-choice3').text(QUESTIONS[STORE.currentQuestion-1].answer3);
+    $('#js-choice4').text(QUESTIONS[STORE.currentQuestion-1].answer4);
     $('div.js-pageViewQuestionHTML').show();
   }
 };
@@ -322,23 +322,23 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
       <form action='/userSettings' method='post' class='js-settingsForm'>
         <span class='js-1stWidget'>
           <label for='js-questionsToDo' class='js-questionsPickerLabel'>How many questions?</label>
-          <select id='js-questionsToDo'>
-            <option value=10>10 questions</option>
-            <option value=20>20 questions</option>
-            <option value=30>30 questions</option>
-            <option value=40>40 questions</option>
-            <option value=50>50 questions</option>
+          <select id='js-questionsToDo' onchange='Listeners.handleQuestionsToDo()'>
+            <option value='10'>10 questions</option>
+            <option value='20'>20 questions</option>
+            <option value='30'>30 questions</option>
+            <option value='40'>40 questions</option>
+            <option value='50'>50 questions</option>
           </select>
         </span>
 
         <span class='js-2ndWidget'>
           <label for='js-category' class='js-categoryPickerLabel'>Which category?</label>
-          <select id='js-category'>
-            <option value=9>General Knowledge</option>
-            <option value=21>Sports</option>
-            <option value=20>Mythology</option>
-            <option value=23>History</option>
-            <option value=12>Music</option>
+          <select id='js-category' onchange='Listeners.handleCategory()'>
+            <option value='9'>General Knowledge</option>
+            <option value='21'>Sports</option>
+            <option value='20'>Mythology</option>
+            <option value='23'>History</option>
+            <option value='12'>Music</option>
           </select>
         </span>
       </form>`;
@@ -471,10 +471,14 @@ const Listeners = {  // All listener methods. More to come here.
 
   handleQuestionsToDo: function(){
     console.log('In the handleQuestionsToDo method');
-    var e = document.getElementById('js-questionsToDo');
-    if(e.selectedIndex > 0){
-      alert(e.selectedIndex);
-    }
+    let myDropdown = document.getElementById('js-questionsToDo');
+    JSON.amount=myDropdown.value;
+  },
+
+  handleCategory: function(){    
+    console.log('In the handleCategory method');
+    let myDropdown = document.getElementById('js-category');
+    JSON.category=myDropdown.value;
   }
 };
 
