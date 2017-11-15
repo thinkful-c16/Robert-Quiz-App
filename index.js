@@ -322,7 +322,7 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
       <form action='/userSettings' method='post' class='js-settingsForm'>
         <span class='js-1stWidget'>
           <label for='js-questionsToDo' class='js-questionsPickerLabel'>How many questions?</label>
-          <select class='js-questionsToDo'>
+          <select id='js-questionsToDo'>
             <option value=10>10 questions</option>
             <option value=20>20 questions</option>
             <option value=30>30 questions</option>
@@ -332,8 +332,8 @@ const GenerateHTML = {  // Here's where the extra HTML comes from.
         </span>
 
         <span class='js-2ndWidget'>
-          <label for='js-category' class='js-questionsPickerLabel'>Which category?</label>
-          <select class='js-category'>
+          <label for='js-category' class='js-categoryPickerLabel'>Which category?</label>
+          <select id='js-category'>
             <option value=9>General Knowledge</option>
             <option value=21>Sports</option>
             <option value=20>Mythology</option>
@@ -467,6 +467,14 @@ const Listeners = {  // All listener methods. More to come here.
       STORE.currentView='settings';
       RenderPage.doShowPages();
     });
+  },
+
+  handleQuestionsToDo: function(){
+    console.log('In the handleQuestionsToDo method');
+    var e = document.getElementById('js-questionsToDo');
+    if(e.selectedIndex > 0){
+      alert(e.selectedIndex);
+    }
   }
 };
 

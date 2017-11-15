@@ -293,12 +293,12 @@ h1 {
 }
 
 .js-settingsForm{
+    font-family: 'Arial Black', Gadget, sans-serif;
     position: absolute;
     bottom: 80px;
     left: 30px;
     width: 350px;
     height: 60px;
-    font-family: 'Arial Black', Gadget, sans-serif;
     font-size: 8pt;
     border: 3px solid #454545;
     border-radius: 4px;
@@ -321,13 +321,9 @@ h1 {
     height: 48px;
 }
 
-.js-questionsPickerLabel{
+#js-questionsToDo, #js-category{
     font-family: 'Arial Black', Gadget, sans-serif;
-}
-
-.js-questionsToDo, .js-category{
-    position: absolute;    
-    font-family: 'Arial Black', Gadget, sans-serif;
+    position: absolute;
     left: 10px;
     top: 20px;
     color: black;
