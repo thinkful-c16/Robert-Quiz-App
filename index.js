@@ -277,10 +277,10 @@ const RenderPage = {  // Determines what HTML to display based on the current st
     console.log('In the renderQuestions method.');
     //only if the STORE is on pages that show questions
     $('.js-screenQuestion').html(QUESTIONS[STORE.currentQuestion-1].question);
-    $('#js-choice1').text(QUESTIONS[STORE.currentQuestion-1].answer1);
-    $('#js-choice2').text(QUESTIONS[STORE.currentQuestion-1].answer2);
-    $('#js-choice3').text(QUESTIONS[STORE.currentQuestion-1].answer3);
-    $('#js-choice4').text(QUESTIONS[STORE.currentQuestion-1].answer4);
+    $('#js-choice1').html(QUESTIONS[STORE.currentQuestion-1].answer1);
+    $('#js-choice2').html(QUESTIONS[STORE.currentQuestion-1].answer2);
+    $('#js-choice3').html(QUESTIONS[STORE.currentQuestion-1].answer3);
+    $('#js-choice4').html(QUESTIONS[STORE.currentQuestion-1].answer4);
     $('div.js-pageViewQuestionHTML').show();
   }
 };
